@@ -749,6 +749,19 @@ EOF;
             }
         }
 
+        // Quickmail.
+        if ( \core_component::get_component_directory('block_quickmail') !== null &&
+            $COURSE->id != SITEID && has_capability('block/quickmail:cansend', $coursecontext)
+        ) {
+
+            $iconurl = $OUTPUT->image_url('t/email', 'core');
+            $quickmailicon = '<img src="' . $iconurl . '" class="svg-icon" alt="" role="presentation">';
+            $links[] = array(
+                'link' => 'blocks/quickmail/qm.php?courseid=' . $COURSE->id,
+                'title' => $quickmailicon . get_string('pluginname', 'block_quickmail'),
+            );
+        }
+
         if ( \core_component::get_component_directory('report_allylti') !== null &&
             $COURSE->id != SITEID && has_capability('report/allylti:viewcoursereport', $coursecontext)
         ) {
@@ -767,6 +780,7 @@ EOF;
                 'attributes' => ['target' => '_blank']
             ];
         }
+
         // Output course tools section.
         $coursetools = get_string('coursetools', 'theme_snap');
         $iconurl = $OUTPUT->image_url('course_dashboard', 'theme');
